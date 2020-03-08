@@ -74,7 +74,7 @@ ggplot(Confirmed1_subset, aes(x=Date, y=Cases, group=Country, color=Country)) +
   scale_x_date("Day", date_breaks ="1 week", date_labels = "%b %d")+
   ggtitle(paste("Cumulative cases over time as of ",lastDate)) +
   theme_classic() + 
-  theme(legend.position = c(0.13, 0.75)) 
+  theme(legend.position = c(0.13, 0.70)) 
 
 
 # write ggplot code to a new data frame
