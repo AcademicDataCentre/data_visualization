@@ -6,7 +6,7 @@ View(merged_data)
 
 # change names of variables to get unique names
 
-names(merged_data) [1:9] = c("Country", "Date", "CasesConfirmed", "Country", "Date", "CasesRecovered", "Country", "Date", "CasesDeaths")
+names(merged_data) [1:9] = c("Country", "Date", "Cases Confirmed", "Country", "Date", "Cases Recovered", "Country", "Date", "Cases Deaths")
 
 # remove duplicate columns
 
@@ -27,14 +27,14 @@ totalcases<-totalcases[,c(-2)]%>%melt(id="Country")
 colnames(totalcases)<-c("Country","Status","Cases")
 View(totalcases)
 
-# create stacked bar graph
+#create stacked bar graph
 
 bargraph <-ggplot(totalcases) + 
 aes(x=Country, y = Cases, fill=Status) +  
 geom_bar(stat="identity") + 
 scale_fill_manual(values=wes_palette("Darjeeling1", 3)) + 
 theme(axis.text.x=element_text(angle = -45, hjust = 0)) +
-labs(title = "COVID-19 Confirmed, Recovered and Deaths x Country to 20-03-05") + theme(legend.text = "Confirmed cases", "Recovered", "Deaths") +
+labs(title = "COVID-19 Confirmed, Recovered, Deaths x Country, 20-03-07") + 
 scale_y_log10()
 
 # plot bargraph
