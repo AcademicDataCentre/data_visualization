@@ -60,7 +60,10 @@ Confirmed1_subset<-Confirmed1%>%filter(Country=="US"|Country=="Canada"|Country==
 View(Confirmed1_subset)
 
 # Create a static plot 
-
+# geom_line is a type of line graph: observations are ordered by x value and connected.
+# theme: control non-data parts of a display such as background (colour, grid) line width, font, colours, etc. 
+# log transformation: we will use log10 for y in order to control for the majority of cases coming from one country
+# scale_y_log10 means the y axis is transformed to log10 scale 
 
 lastDate<-max(Confirmed1_subset$Date)
 ggplot(Confirmed1_subset, aes(x=Date, y=Cases, group=Country, color=Country)) +
