@@ -27,7 +27,7 @@ totalcases<-totalcases[,c(-2)]%>%melt(id="Country")
 colnames(totalcases)<-c("Country","Status","Cases")
 View(totalcases)
 
-#create stacked bar graph
+# create stacked bar graph
 
 bargraph <-ggplot(totalcases) + 
 aes(x=Country, y = Cases, fill=Status) +  
