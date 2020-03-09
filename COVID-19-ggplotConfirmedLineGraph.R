@@ -66,28 +66,28 @@ View(Confirmed1_subset)
 # scale_y_log10 means the y axis is transformed to log10 scale 
 
 lastDate<-max(Confirmed1_subset$Date)
-ggplot(Confirmed1_subset, aes(x=Date, y=Cases, group=Country, color=Country)) +
+ggplot(Confirmed1_subset, aes(x=Date, y=Cases, color=Country)) +
   geom_line() +
   geom_point() + 
   scale_y_log10("Number of Confirmed Cases", breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)))+
   scale_x_date("Day", date_breaks ="1 week", date_labels = "%b %d")+
-  ggtitle(paste("Cumulative cases over time as of ",lastDate)) +
-  theme_classic() + 
-  theme(legend.position = c(0.13, 0.70)) 
+  ggtitle(paste("Evolution of cumulative cases over time as of ",lastDate)) +
+  theme_classic() +
+  theme(legend.position = c(0.13, 0.88),plot.margin = unit(c(1, 2, 1, 2), "cm")) 
 
 
 # write ggplot code to a new data frame
 
-confirmed_plot <- ggplot(Confirmed1_subset, aes(x=Date, y=Cases, group=Country, color=Country)) +
+confirmed_plot <- ggplot(Confirmed1_subset, aes(x=Date, y=Cases, color=Country)) +
   geom_line() +
   geom_point() + 
   scale_y_log10("Number of Confirmed Cases", breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)))+
   scale_x_date("Day", date_breaks ="1 week", date_labels = "%b %d")+
-  ggtitle(paste("Cumulative cases over time as of ",lastDate)) +
-  theme_classic() + 
-  theme(legend.position = c(0.13, 0.75))
+  ggtitle(paste("Evolution of cumulative cases over time as of ",lastDate)) +
+  theme_classic() +
+  theme(legend.position = c(0.13, 0.88),plot.margin = unit(c(1, 2, 1, 2), "cm"))
 
 # plot and print and save
 
@@ -100,20 +100,17 @@ ggsave("C:/R_ggplot/myplot.pdf", plot=confirmed_plot)
 
 # Create an animation gif file
 
-p <- ggplot(Confirmed1_subset, aes(x=Date, y=Cases, group=Country, color=Country)) +
+p<-ggplot(Confirmed1_subset, aes(x=Date, y=Cases, color=Country)) +
   geom_line() +
   geom_point() + 
-  geom_text(aes(x = max(Date)+.1, label = sprintf("%5.0f", Cases)), hjust=-0.5) +
-  transition_reveal(Date) + 
-  view_follow(fixed_y = TRUE)+
-  coord_cartesian(clip = 'off') +
   scale_y_log10("Number of Confirmed cases", breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)))+
   scale_x_date("Day", date_breaks ="1 week", date_labels = "%b %d")+
+  geom_text(aes(x = max(Date)+.1, label = sprintf("%.0f", Cases)), hjust=1) +
+  transition_reveal(Date) + 
   enter_drift(x_mod = -1) + exit_drift(x_mod = 1) +
-  theme_classic() +
-  theme(legend.position = c(0.13, 0.88),
-  plot.margin = margin(5.5, 40, 5.5, 5.5))
+  theme_classic() + 
+  theme(legend.position = c(0.13, 0.88),plot.margin = unit(c(1, 2, 1, 2), "cm"))
 
-animate(p, fps=5,renderer = gifski_renderer("COVID-19.gif"))
+animate(p, fps=5,renderer = gifski_renderer("COVID-19-1.gif"))
 
