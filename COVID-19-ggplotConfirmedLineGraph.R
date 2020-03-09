@@ -111,7 +111,7 @@ p <- ggplot(Confirmed1_subset, aes(x=Date, y=Cases, group=Country, color=Country
                 labels = trans_format("log10", math_format(10^.x)))+
   scale_x_date("Day", date_breaks ="1 week", date_labels = "%b %d")+
   enter_drift(x_mod = -1) + exit_drift(x_mod = 1) +
-  theme_classic() + scale_color_manual(values=wes_palette("IsleofDogs1", 6)) +
+  theme_classic() +
   theme(legend.position = c(0.13, 0.88),
   plot.margin = margin(5.5, 40, 5.5, 5.5))
 

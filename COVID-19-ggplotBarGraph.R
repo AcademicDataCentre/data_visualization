@@ -15,7 +15,7 @@ View(merged_data)
 
 # filter by last date for each country
 
-totalcases <- subset.data.frame(merged_data, merged_data$Date == "2020-03-05", na.rm=TRUE)
+totalcases <- subset.data.frame(merged_data, merged_data$Date == "2020-03-08", na.rm=TRUE)
 View(totalcases)
 
 # make wide data long
