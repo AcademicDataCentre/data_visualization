@@ -17,7 +17,8 @@ install.packages("gifski",dependencies = TRUE)
 install.packages("ggthemes",dependencies = TRUE)
 install.packages("gganimate",dependencies = TRUE)
 install.packages("scales",dependencies = TRUE)
-
+install.packages("grid", dependencies = TRUE)
+library(grid)
 library(gifski)
 library(ggthemes)
 library(gganimate)
@@ -100,17 +101,17 @@ ggsave("C:/R_ggplot/myplot.pdf", plot=confirmed_plot)
 
 # Create an animation gif file
 
-p<-ggplot(Confirmed1_subset, aes(x=Date, y=Cases, color=Country)) +
+confirmed_plot<-ggplot(Confirmed1_subset, aes(x=Date, y=Cases, color=Country)) +
   geom_line() +
   geom_point() + 
   scale_y_log10("Number of Confirmed cases", breaks = trans_breaks("log10", function(x) 10^x),
                 labels = trans_format("log10", math_format(10^.x)))+
   scale_x_date("Day", date_breaks ="1 week", date_labels = "%b %d")+
-  geom_text(aes(x = max(Date)+.1, label = sprintf("%.0f", Cases)), hjust=1) +
+  geom_text(aes(x = max(Date), label = sprintf("%.0f", Cases)), hjust=1) +
   transition_reveal(Date) + 
   enter_drift(x_mod = -1) + exit_drift(x_mod = 1) +
   theme_classic() + 
   theme(legend.position = c(0.13, 0.88),plot.margin = unit(c(1, 2, 1, 2), "cm"))
 
-animate(p, fps=5,renderer = gifski_renderer("COVID-19-1.gif"))
+animate(confirmed_plot, fps=5,renderer = gifski_renderer("COVID-19-1.gif"))
 
